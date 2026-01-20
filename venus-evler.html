@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Venüs Evlerde | Ayazora</title>
+    <meta name="description" content="Venüs'ün 12 astrolojik evdeki yerleşiminin güzellik, para, ilişkiler ve kariyer üzerindeki etkilerini keşfedin." />
+    <style>
+        :root{
+            --bg: #0A1A3E; 
+            --accent: #5A2A87; 
+            --muted: #E6E6F0; 
+            --card: #071330;
+            --glass: rgba(255,214,255,0.06);
+            --star: rgba(255,214,255,0.55);
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+        .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+        /* HEADER & FOOTER STYLES */
+        header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+        .logo svg{fill:var(--muted);width:26px;height:26px}
+        .site-title{font-weight:700;font-size:1.05rem}
+        .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+        nav{display:flex;gap:18px;text-align:right}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+        nav a:hover{text-decoration:underline}
+        footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+        
+        /* VENÜS EVLER SAYFA STİLLERİ */
+        .intro-section { padding: 40px 0 60px; text-align: center; }
+        .intro-section h1 { font-size: 2.8rem; color: #fff; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .intro-section p { font-size: 1.1rem; color: rgba(230,230,240,0.85); max-width: 700px; margin: 0 auto; }
+
+        /* KART GRİD VE STİLİ */
+        .house-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        .house-card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border-left: 5px solid transparent;
+            cursor: pointer;
+        }
+        .house-card:hover {
+            transform: translateY(-5px);
+            border-left-color: #ff99ff; /* Venüs vurgusu */
+            box-shadow: 0 10px 30px rgba(255, 153, 255, 0.2);
+        }
+        .house-card h2 {
+            margin: 0 0 5px 0;
+            color: #ff99ff; /* Başlık pembe */
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        .house-card h2 span {
+            font-size: 0.9em;
+            font-weight: 400;
+            color: var(--muted);
+            margin-left: 10px;
+        }
+        .house-card .theme {
+            font-size: 0.95rem;
+            color: rgba(230,230,240,0.7);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .house-card p {
+            color: rgba(230,230,240,0.9);
+            line-height: 1.6;
+        }
+        
+        /* Arka plan ve Responsive stilleri diğer sayfalarla aynı kalır */
+        .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .star{ position:absolute; background:var(--star); width:4px; height:4px; border-radius:50%; filter:blur(1px); opacity:0.9; animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate; }
+        @keyframes drift{ 0%{transform:translateY(0) translateX(0) scale(1)} 50%{transform:translateY(-40px) translateX(20px) scale(0.9)} 100%{transform:translateY(0) translateX(0) scale(1)} }
+        @keyframes twinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: blur(3px); } }
+        @media (max-width:600px){ .intro-section h1 { font-size: 2rem; } .house-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    
+    <div class="stars" aria-hidden="true">
+        <div class="star" style="left:8%;top:12%;animation-duration:14s;animation-delay:0s"></div>
+        <div class="star" style="left:38%;top:22%;animation-duration:10s;animation-delay:2s"></div>
+        <div class="star" style="left:68%;top:6%;animation-duration:18s;animation-delay:4s"></div>
+        <div class="star" style="left:82%;top:42%;animation-duration:9s;animation-delay:6s"></div>
+        <div class="star" style="left:14%;top:62%;animation-duration:11s;animation-delay:8s"></div>
+        <div class="star" style="left:25%;top:80%;animation-duration:16s;animation-delay:1s"></div>
+        <div class="star" style="left:55%;top:70%;animation-duration:13s;animation-delay:3s"></div>
+        <div class="star" style="left:90%;top:85%;animation-duration:17s;animation-delay:5s"></div>
+        <div class="star" style="left:5%;top:30%;animation-duration:11s;animation-delay:7s"></div>
+        <div class="star" style="left:75%;top:18%;animation-duration:15s;animation-delay:9s"></div>
+    </div>
+
+    <header class="header container">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+            </div>
+            <div>
+                <div class="site-title">Ayazora</div>
+                <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+            </div>
+        </div>
+        <nav>
+            <a href="ayazora-anasayfa.html">Ana Sayfa</a>
+            <a href="burc-rehberi.html">Burçlar</a>
+            <a href="ay-burclari.html">Ay Rehberi</a>
+            <a href="yukselen-burclari.html">Yükselen</a>
+            <a href="venus-rehberi.html">Venüs</a>
+            <a href="temel-uclu-analiz.html">Temel Üçlü Analiz</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro-section">
+            <h1>Venüs Evlerde: Güzellik, Değer ve Şansın Alanları</h1>
+            <p>Venüs'ün doğum haritanızdaki 12 evden hangisinde bulunduğunu bilmek; size hangi yaşam alanlarının doğal şans, çekim, huzur ve finansal kolaylık getirdiğini gösterir. Huzuru nerede buluyorsun?</p>
+        </section>
+
+        <section class="house-grid">
+            
+            <div class="house-card">
+                <h2>1. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Kişisel Çekicilik ve Duruş**</span>
+                <p>
+                    Venüs, kişiye girdiği ortamda hemen fark edilen bir **güzellik, zarafet ve çekicilik** verir. Bu yerleşim, kendine iyi bakma ve estetik konularla ilgilenme eğilimi getirir. Kişi, doğal olarak uyum yayar.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>2. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Para ve Değerler**</span>
+                <p>
+                    Bu yerleşime sahip olanlar, **sanatsal yeteneklerini paraya çevirebilir** veya kadınlarla ilgili estetik ve güzellik gibi sektörlerden kazanç sağlayabilirler. Maddi güvence, huzur kaynağıdır.
+                </p>
+            </div>
+            
+            <div class="house-card">
+                <h2>3. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **İletişim ve Sosyal Çevre**</span>
+                <p>
+                    Kişiye **güzel konuşma**, tatlı dil, entelektüellik, edebiyat ve şiire ilgi verir. Sosyal çevreden ve kısa yolculuklardan yana şanslı etkiler taşır. Kardeşlik ilişkilerinde uyum arar.
+                </p>
+            </div>
+            
+            <div class="house-card">
+                <h2>4. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Yuva ve Kökenler**</span>
+                <p>
+                    Venüs, kişinin **evine duygusal bağ** kurmasıyla çalışır. Kişi evini çok sever, güzel, estetik ve konforlu evlerde oturmak ister. Evinde vakit geçirmek bu yerleşimi olan kişiler için önemlidir ve keyiflidir.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>5. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Flört, Yaratıcılık ve Eğlence**</span>
+                <p>
+                    Arkadaş çevresi, flörtler ve **yaratıcılık** açısından güzel etkiler taşır. Burada Venüs yerleşimi olan kişiler ortamın **popüler, ilgi çeken** ve sevilen karakteri olabilirler. Aşkta şanslıdırlar.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>6. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Hizmet ve İş Yaşamı**</span>
+                <p>
+                    Üretmeyi, **çalışmayı seven**, iş hayatındaki insanlarla güzel ve uyumlu bağlar kuran kişilerin yerleşimidir. İş ortamında estetik ve sanatsal dokunuşlar, huzuru artırır.
+                </p>
+            </div>
+            
+            <div class="house-card">
+                <h2>7. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Evlilik ve Ortaklıklar**</span>
+                <p>
+                    Venüs’ü 7. Evde olan kişiler, ikili ilişkilerinde şanslı, **değer gören** kişilerdir. **Evlilik** ve uzun süreli ortaklıklar açısından da güzel etkiler ve uyum verir.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>8. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Ortak Finans ve Dönüşüm**</span>
+                <p>
+                    8. Evdeki Venüs kişiye **finansal açıdan şanslı etkiler** getirir. Miras veya eşin/ortakların parası gibi ortak kaynaklardan fayda görme potansiyeli yüksektir. İlişkilerde derinlik arar.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>9. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Yolculuklar ve Felsefe**</span>
+                <p>
+                    Venüs’ü 9. Evde olan kişiler **uzun yolculuklar** açısından şanslıdır. Farklı kültürlere ve felsefi konulara ilgi duyarlar. Flört konularında farklı, marjinal kişilere çekilebilirler.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>10. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Kariyer ve İtibar**</span>
+                <p>
+                    Bu kişiler **kariyerlerinde şanslı** olurlar ve toplumda sevilen, uyumlu bir imaja sahiptirler. Ayrıca, kadınlarla çalışabilecekleri veya estetik/sanat içeren işlerde başarılı olurlar.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>11. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Arkadaşlık ve Gruplar**</span>
+                <p>
+                    Kişiye arkadaş çevresi ve gruplar tarafından **çok sevilen, popüler biri** olma etkisini getirir. Arkadaşlık ilişkilerinden fayda ve destek görürler. Sosyal amaçlara değer verirler.
+                </p>
+            </div>
+
+            <div class="house-card">
+                <h2>12. Evde Venüs</h2>
+                <span class="theme">Temel Tema: **Gizli Yaşam ve İç Dünya**</span>
+                <p>
+                    Bu kişiler **kendi yalnızlıklarını seven**, kendi içlerine dönen ve huzuru manevi dünyalarında bulan kişilerdir. Zaman zaman utangaç, sıkılgan veya gizli aşklar yaşama eğiliminde olabilirler.
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+        </div>
+    </footer>
+
+</body>
+</html>
