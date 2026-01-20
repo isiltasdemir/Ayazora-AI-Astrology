@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Temel Üçlü Analizi | Ayazora</title>
+    <meta name="description" content="Kişisel doğum haritanızın Temel Üçlü (Güneş, Ay, Yükselen) analizi için doğum tarihi ve burçlarınızı girin. Yapay zeka destekli derin psikolojik analiz alın." />
+    <style>
+        :root{
+            --bg: #0A1A3E; 
+            --accent: #5A2A87; 
+            --muted: #E6E6F0; 
+            --card: #071330;
+            --glass: rgba(255,214,255,0.06);
+            --star: rgba(255,214,255,0.55);
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+        .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+        /* HEADER & FOOTER STYLES */
+        header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+        .logo svg{fill:var(--muted);width:26px;height:26px}
+        .site-title{font-weight:700;font-size:1.05rem}
+        .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+        nav{display:flex;gap:18px;text-align:right}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+        nav a:hover{text-decoration:underline}
+        footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+        
+        /* ANALİZ FORM STİLLERİ */
+        .form-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .chart-form-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(2,6,23,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            max-width: 500px;
+            width: 100%;
+        }
+        .chart-form-card h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+        }
+        
+        /* FORM GRUBU VE GİRİŞ ALANLARI */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.2);
+            color: var(--muted);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none; 
+            -moz-appearance: none;
+            appearance: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 5px var(--accent);
+        }
+        
+        /* SELECT özel oku */
+        .form-group select {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="rgba(230,230,240,0.8)" d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+
+        /* Buton stili */
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .btn-submit:hover {
+            background: #7a4cb2; 
+            transform: translateY(-1px);
+        }
+
+        /* ARKA PLAN YILDIZLARI */
+        .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .star{
+            position:absolute; background:var(--star); width:4px; height:4px; border-radius:50%; filter:blur(1px); opacity:0.9;
+            animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate;
+        }
+        @keyframes drift{ 0%{transform:translateY(0) translateX(0) scale(1)} 50%{transform:translateY(-40px) translateX(20px) scale(0.9)} 100%{transform:translateY(0) translateX(0) scale(1)} }
+        @keyframes twinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: blur(3px); } }
+
+        /* Responsive */
+        @media (max-width:550px) {
+            .chart-form-card {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+            .chart-form-card h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="stars" aria-hidden="true">
+        <div class="star" style="left:8%;top:12%;animation-duration:14s;animation-delay:0s"></div>
+        <div class="star" style="left:38%;top:22%;animation-duration:10s;animation-delay:2s"></div>
+        <div class="star" style="left:68%;top:6%;animation-duration:18s;animation-delay:4s"></div>
+        <div class="star" style="left:82%;top:42%;animation-duration:9s;animation-delay:6s"></div>
+        <div class="star" style="left:14%;top:62%;animation-duration:11s;animation-delay:8s"></div>
+    </div>
+
+    <header class="header container">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+            </div>
+            <div>
+                <div class="site-title">Ayazora</div>
+                <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+            </div>
+        </div>
+        <nav>
+            <a href="ayazora-anasayfa.html">Ana Sayfa</a>
+            <a href="burc-rehberi.html">Burçlar</a>
+            <a href="venus-rehberi.html">Venüs</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="form-section">
+            <div class="chart-form-card">
+                <h1>Temel Üçlü Analizinizi Çıkarın</h1>
+                
+                <form id="birthChartForm" action="#" method="POST">
+                    
+                    <div class="form-group">
+                        <label for="dogumTarihi">Doğum Tarihi (Güneş Burcunuzu hesaplamak için):</label>
+                        <input type="date" id="dogumTarihi" name="dogumTarihi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ayBurcu">Ay Burcunuz (İçsel/Ruhsal İhtiyaç):</label>
+                        <select id="ayBurcu" name="ayBurcu" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="Koç">Koç</option>
+                            <option value="Boğa">Boğa</option>
+                            <option value="İkizler">İkizler</option>
+                            <option value="Yengeç">Yengeç</option>
+                            <option value="Aslan">Aslan</option>
+                            <option value="Başak">Başak</option>
+                            <option value="Terazi">Terazi</option>
+                            <option value="Akrep">Akrep</option>
+                            <option value="Yay">Yay</option>
+                            <option value="Oğlak">Oğlak</option>
+                            <option value="Kova">Kova</option>
+                            <option value="Balık">Balık</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="yukselenBurcu">Yükselen Burcunuz (Sosyal Maske/Dış İmaj):</label>
+                        <select id="yukselenBurcu" name="yukselenBurcu" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="Koç">Koç</option>
+                            <option value="Boğa">Boğa</option>
+                            <option value="İkizler">İkizler</option>
+                            <option value="Yengeç">Yengeç</option>
+                            <option value="Aslan">Aslan</option>
+                            <option value="Başak">Başak</option>
+                            <option value="Terazi">Terazi</option>
+                            <option value="Akrep">Akrep</option>
+                            <option value="Yay">Yay</option>
+                            <option value="Oğlak">Oğlak</option>
+                            <option value="Kova">Kova</option>
+                            <option value="Balık">Balık</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Yapay Zeka Analizi Başlat</button>
+                </form>
+
+                <p style="margin-top: 20px; font-size: 0.85rem; color: rgba(230,230,240,0.6); text-align: center;">
+                    *Bu analiz, haritanızın en temel 3 unsurunu birleştirir. Ay ve Yükselen burcunuzu bilmiyorsanız <a href="ay-burclari.html" style="color: rgba(230,230,240,0.8); text-decoration: underline;">Ay Rehberi</a> ve <a href="yukselen-burclari.html" style="color: rgba(230,230,240,0.8); text-decoration: underline;">Yükselen Rehberi</a> sayfalarından yardım alabilirsiniz.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('birthChartForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const data = {
+                dogumTarihi: form.dogumTarihi.value,
+                ayBurcu: form.ayBurcu.value, 
+                yukselenBurcu: form.yukselenBurcu.value, 
+            };
+
+            const submitButton = document.querySelector('.btn-submit');
+            submitButton.textContent = 'Analiz Ediliyor...'; 
+            submitButton.disabled = true; 
+
+            // Python Flask sunucunuza POST isteği gönderin
+           fetch('http://127.0.0.1:5000/analyze', {
+
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // YZ'den gelen analizi güvenli bir şekilde saklayın
+                    localStorage.setItem('ai_analysis', result.analysis);
+                    // Güneş, Ay, Yükselen verisini sonuç sayfasında göstermek için saklayalım
+                    localStorage.setItem('chart_data', result.chart_data); 
+                    
+                    // Sonuç sayfasına yönlendir. (Sonuç sayfasının adını değiştirmenize gerek yok, harita-sonuc.html kalsın)
+                    window.location.href = 'harita-sonuc.html'; 
+                } else {
+                    alert('Hata: ' + result.error);
+                    submitButton.textContent = 'Yapay Zeka Analizi Başlat';
+                    submitButton.disabled = false;
+                }
+            })
+            .catch(error => {
+                alert('Sunucuya bağlanılamadı. Python sunucusunun çalıştığından emin olun.');
+                submitButton.textContent = 'Yapay Zeka Analizi Başlat';
+                submitButton.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
