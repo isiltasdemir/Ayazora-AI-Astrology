@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ayazora</title>
+  <meta name="description" content="Ayazora — Burçların psikolojik haritaları, ay rehberleri ve astrolojik farkındalık: Gökyüzünün Psikolojisi." />
+  <style>
+
+    :root{
+      --bg: #0A1A3E; /* gece mavisi */
+      --accent: #5A2A87; /* mor */
+      --muted: #E6E6F0; /* grimsi beyaz */
+      --card: #071330;
+      --glass: rgba(255,214,255,0.06);
+      --star: rgba(255,214,255,0.55); /* Yıldız parlaklığı artırıldı */
+      --maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+    /* Header */
+    header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between} /* Z-index yükseltildi */
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+    .logo svg{fill:var(--muted);width:26px;height:26px}
+    .site-title{font-weight:700;font-size:1.05rem}
+    .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+
+    nav{display:flex;gap:18px;text-align:right}
+    nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+    nav a:hover{text-decoration:underline}
+
+    /* Hero */
+    .hero{position:relative; z-index:2; display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;padding:28px 0} /* Z-index yükseltildi */
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));border-radius:12px;padding:28px;box-shadow:0 10px 40px rgba(2,6,23,0.75);backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15);} /* Blur ve Shadow artırıldı */
+    .hero h1{margin:0;font-size:2.4rem;color:#fff;line-height:1.02; text-shadow: 0 0 15px rgba(255,255,255,0.3);} /* Başlık gölgesi artırıldı */
+    .hero p{color:rgba(230,230,240,0.98);margin-top:8px}
+    .cta{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;transition: background 0.3s ease, transform 0.2s ease;}
+    .cta:hover{background:#7a4cb2; transform: translateY(-2px);}
+
+    /* Stars and Planets decorative */
+    .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+    .star{
+      position:absolute;
+      background:var(--star);
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      filter:blur(1px); /* Daha belirgin yıldızlar için bulanıklık artırıldı */
+      opacity:0.9;
+      animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate;
+    }
+
+    /* Yeni gezegen stili - BOYUT VE PARLAKLIK ARTIRILDI */
+    .planet{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(3px); /* Gezegen bulanıklığı artırıldı */
+      opacity:0.8; /* Opaklık artırıldı */
+      background:radial-gradient(circle at 35% 35%, rgba(255,255,255,0.4), var(--accent) 75%, #3b2a6f 100%); /* Degrade daha canlı */
+      box-shadow: 0 0 30px rgba(90,42,135,1), 0 0 50px rgba(255,255,255,0.25); /* Daha güçlü ışıltı */
+      animation: planetDrift 30s linear infinite;
+      transform-origin: center center;
+    }
+
+    /* Yıldızlar için animasyon */
+    @keyframes drift{
+      0%{transform:translateY(0) translateX(0) scale(1)}
+      50%{transform:translateY(-40px) translateX(20px) scale(0.9)} /* Hareket mesafesi artırıldı */
+      100%{transform:translateY(0) translateX(0) scale(1)}
+    }
+
+    /* Yıldızlar için parıldama animasyonu */
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; filter: blur(3px); } /* Daha güçlü parlama anı */
+    }
+
+    /* Gezegenler için daha yavaş ve geniş animasyon */
+    @keyframes planetDrift{
+      0%{transform:translate(-15%,-15%) scale(1) rotate(0deg); opacity: 0.75;} /* Başlangıç hareketi artırıldı */
+      25%{transform:translate(20%,15%) scale(1.1) rotate(90deg); opacity: 0.9;}
+      50%{transform:translate(40%,-10%) scale(1.2) rotate(180deg); opacity: 1;} /* En büyük ve en parlak an */
+      75%{transform:translate(15%,30%) scale(1.1) rotate(270deg); opacity: 0.9;}
+      100%{transform:translate(-15%,-15%) scale(1) rotate(360deg); opacity: 0.75;}
+    }
+
+    /* Cards */
+    .cards{display:flex;gap:18px;flex-direction:column}
+    .card{position:relative; z-index:2; background:var(--card);padding:16px;border-radius:12px; border: 1px solid rgba(255,255,255,0.1);}
+    .card h3{margin:0 0 8px 0; color:#fff;}
+    .card p{margin:0;color:rgba(230,230,240,0.9)}
+
+    /* Main layout */
+    .layout{position:relative; z-index:2; display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-top:22px}
+    .posts .post{background:transparent;border-radius:12px;padding:18px;margin-bottom:14px;border-left:4px solid rgba(90,42,135,0.5); transition: border-left-color 0.3s ease;}
+    .posts .post:hover{border-left-color: var(--accent);}
+    .post h2{margin:0 0 8px 0;color:#fff; text-shadow: 0 0 8px rgba(255,255,255,0.2);}
+    .post p{margin:0;color:rgba(230,230,240,0.95)}
+    .sidebar .widget{position:relative; z-index:2; background:var(--card);padding:16px;border-radius:12px;margin-bottom:12px; border: 1px solid rgba(255,255,255,0.1);}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:0.85rem; border: 1px solid rgba(255,255,255,0.08);}
+
+    footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+
+    /* Small helper */
+    .muted{color:rgba(230,230,240,0.8);font-size:0.95rem}
+    .link-muted{color:var(--muted);text-decoration:underline; transition: color 0.3s ease;}
+    .link-muted:hover{color:#fff;}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .layout{grid-template-columns:1fr}
+      nav{display:none}
+    }
+
+    @media (max-width:520px){
+      .logo{width:40px;height:40px}
+      .hero h1{font-size:1.8rem}
+    }
+
+    .parlak-vurgu {
+  color: #BB8ED0; /* lila */
+  font-weight: 800; /* Ekstra kalınlık */
+  text-shadow:
+    0 0 5px #92487A,  
+    0 0 10px #92487A;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="stars" aria-hidden="true">
+
+    <div class="star" style="left:8%;top:12%;width:4px;height:4px;animation-duration:14s;animation-delay:0s"></div>
+    <div class="star" style="left:38%;top:22%;width:5px;height:5px;animation-duration:10s;animation-delay:2s"></div>
+    <div class="star" style="left:68%;top:6%;width:3px;height:3px;animation-duration:18s;animation-delay:4s"></div>
+    <div class="star" style="left:82%;top:42%;width:6px;height:6px;animation-duration:9s;animation-delay:6s"></div>
+    <div class="star" style="left:14%;top:62%;width:5px;height:5px;animation-duration:11s;animation-delay:8s"></div>
+    <div class="star" style="left:25%;top:80%;width:4px;height:4px;animation-duration:16s;animation-delay:1s"></div>
+    <div class="star" style="left:55%;top:70%;width:3px;height:3px;animation-duration:13s;animation-delay:3s"></div>
+    <div class="star" style="left:90%;top:85%;width:5px;height:5px;animation-duration:17s;animation-delay:5s"></div>
+    <div class="star" style="left:5%;top:30%;width:6px;height:6px;animation-duration:11s;animation-delay:7s"></div>
+    <div class="star" style="left:75%;top:18%;width:4px;height:4px;animation-duration:15s;animation-delay:9s"></div>
+    <div class="star" style="left:18%;top:40%;width:3px;height:3px;animation-duration:10s;animation-delay:1s;"></div>
+    <div class="star" style="left:48%;top:55%;width:4px;height:4px;animation-duration:12s;animation-delay:3s;"></div>
+    <div class="star" style="left:78%;top:75%;width:2px;height:2px;animation-duration:15s;animation-delay:5s;"></div>
+    <div class="star" style="left:2%;top:88%;width:5px;height:5px;animation-duration:11s;animation-delay:7s;"></div>
+    <div class="star" style="left:60%;top:10%;width:3px;height:3px;animation-duration:13s;animation-delay:9s;"></div>
+    <div class="planet" style="left:15%;top:5%;width:120px;height:120px;animation-duration:45s;animation-delay:0s;opacity:0.7;"></div> <div class="planet" style="left:70%;top:60%;width:140px;height:140px;animation-duration:38s;animation-delay:5s;opacity:0.6;"></div> <div class="planet" style="left:40%;top:90%;width:90px;height:90px;animation-duration:50s;animation-delay:10s;opacity:0.5;"></div> <div class="planet" style="left:5%;top:45%;width:130px;height:130px;animation-duration:42s;animation-delay:3s;opacity:0.75;"></div> <div class="planet" style="left:85%;top:20%;width:110px;height:110px;animation-duration:35s;animation-delay:8s;opacity:0.65;"></div> </div>
+
+  <header class="header container">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+      </div>
+
+      <div>
+        <div class="site-title">Ayazora</div>
+        <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+      </div>
+
+    </div>
+
+    <nav>
+      <a href="burc-rehberi.html">Burçlar</a>
+      <a href="yukselen-burclari.html">Yükselen Burçlar</a>
+      <a href="ay-burclari.html">Ay Rehberi</a>
+      <a href="temel-uclu-analiz.html">Temel Üçlü Analiz</a>
+      
+    </nav>
+
+  </header>
+
+  <main class="container">
+    <section class="hero">
+  <div class="hero-card">
+    <h1>Gökyüzü konuşur, sen yeter ki dinle.</h1>
+    <p>Ayazora'da her burcun derin psikolojik haritasını ve ayın ruhsal döngülerini keşfediyoruz. Kendine dair yeni farkındalıklar edin.</p>
+    <a href="burc-rehberi.html" class="cta">Burç Haritalarını Keşfet</a>
+  </div>
+
+      <aside>
+  <div class="card">
+    <h3>Güncel</h3>
+    <p class="muted">Aralık 2025 — **Oğlak Stelyumu** zirvede. Yüksek hedefler, disiplin ve otokontrol bu ayın ana temaları. Gecikmelerin, Satürn'ün dersleri olduğunu unutmayın; sabır, en büyük yatırımınızdır.</p>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h3>İçsel Benliği Keşfet</h3>
+    <p class="muted">Güneş burcu <span class="parlak-vurgu">kişiliğini</span> , yükselen burcu ise dünyaya karşı taktığın <span class="parlak-vurgu">maskeni</span>, ay ise <span class="parlak-vurgu">karakteri</span> teşkil eder belirler. Peki <span class="parlak-vurgu">gerçek sen</span> kimsin? <a href="ay-burclari.html" class="link-muted">İçsel ve edilgen ayını</a> ve <a href="yukselen-burclari.html" class="link-muted"> sosyal yükselenini </a> keşfetmek ister misin?</p>
+  </div>
+      </aside>
+    </section>
+
+    <section class="layout">
+      <section class="posts">
+        <div class="post">
+          <h2>Koç Burcu: Öfke, Cesaret ve Çocukluk Yaraları</h2>
+          <p class="muted">Karanlık yön: Ani öfkelenmeler ve onay arayışı. Bu yazıda Koç burcunun psikolojik örüntülerini, tetikleyicilerini ve iyileşme yollarını inceliyoruz.</p>
+        </div>
+
+        <div class="post">
+          <h2>Boğa Burcu: Güven, Sahiplenme ve Değer</h2>
+          <p class="muted">Boğa’nın temel ihtiyaçlarını ve güven temelli davranışlarını masaya yatırıyoruz. Mal, aidiyet ve sınırlar üzerine bir yazı.</p>
+        </div>
+
+        <div class="post">
+          <h2>İkizler: Zihin Hızı ve Yüzeysel Bağlanmalar</h2>
+          <p class="muted">İkizler’in iletişim becerileri güçlüdür; ancak yüzeysel kalma riskiyle nasıl baş ederler? Keşfediyoruz.</p>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="widget">
+          <h4>Popüler Etiketler</h4>
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag">#AyBurcu</span>
+            <span class="tag">#KuzeyDüğümü</span>
+            <span class="tag">#BurçPsikolojisi</span>
+            <span class="tag">#Dolunay</span>
+          </div>
+        </div>
+
+        <div class="widget">
+          <h4>Hakkında</h4>
+          <p class="muted">Ayazora, gökyüzü ile içsel keşfi birleştiren bir blogdur. Kısa, anlaşılır ve derin içerikler hedefler.</p>
+        </div>
+
+        <div class="widget">
+          <h4>Abone Ol</h4>
+          <p class="muted">E-posta üzerinden haftalık bülten (ileride aktivite)</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="venus" style="margin-top:26px">
+      <h3 style="color:#fff">Astrolojide Venüs: Sevgi, Değer ve Sanat</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px">
+        <div class="card" style="grid-column: span 2;">
+          <strong>Venüs: Sevgi Dilimiz ve Dişil Enerji</strong>
+          <p class="muted" style="margin-top: 5px;">
+            Venüs, haritada sevgi dilimizi, değer algımızı ve sevgimizi nasıl gösterdiğimizi ifade eder. Astrolojide dişil enerjinin ve yaratıcılığın sembolüdür. Bu yüzden huzur, sanatsal yetenekler, şefkat ve affedicilik gibi konularla doğrudan ilişkilendirilir. Venüs burcun, sana ait olanı nasıl çektiğini ve hayatı nasıl güzelleştirdiğini gösterir.
+          </p>
+
+          <a href="venus-rehberi.html" class="cta" style="margin-top: 10px; padding: 8px 12px; font-size: 0.9rem;">Venüs Burcunu Keşfet</a>
+
+          <a href="venus-evler.html" class="cta" style="margin-top: 10px; padding: 8px 12px; font-size: 0.9rem;">Venüs Evlerde Nasıl Etkilere Sebep Olur ?</a>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="baba-figuru" style="margin-top:26px">
+      <h3 style="color:#fff">Baba Figürü: Haritada Otorite ve Miras</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px">
+        
+        <div class="card" style="grid-column: span 3; padding: 20px;"> <strong>Doğum Haritasında Baba Nasıl Görülür?</strong>
+          <p class="muted" style="margin-top: 5px; margin-bottom: 10px;">
+            Doğum haritasında baba figürünü okumak, haritanın genel sembolizmi içinde yer alan birden fazla göstergeyi değerlendirerek mümkün. Astrolojide babayı temsil eden en önemli noktalara (Güneş, Satürn, 4. ve 10. Evler) bakalım. Bu analiz, babayla olan ilişkini ve ondan aldığın yaşam derslerini ortaya çıkarır.
+          </p>
+          
+          <div class="venus-links"> <a href="baba-figuru.html" class="cta" >Detaylı Baba Figürü Analizi</a>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+    </div>
+  </footer>
+</body>
+
+</html>
