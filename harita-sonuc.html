@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Doğum Haritası Analiz Sonucu | Ayazora</title>
+    <meta name="description" content="Kişisel doğum haritası analiz sonucunuz. Yapay zeka destekli detaylı gezegen ve burç yorumları." />
+    <style>
+        :root{
+            --bg: #0A1A3E; 
+            --accent: #5A2A87; 
+            --muted: #E6E6F0; 
+            --card: #071330;
+            --star: rgba(255,214,255,0.55);
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+        .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+        /* HEADER & FOOTER STYLES (Diğer sayfalarla aynı) */
+        header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+        .logo svg{fill:var(--muted);width:26px;height:26px}
+        .site-title{font-weight:700;font-size:1.05rem}
+        .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+        nav{display:flex;gap:18px;text-align:right}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+        nav a:hover{text-decoration:underline}
+        footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+        
+        /* SONUÇ SAYFASI STİLLERİ */
+        .result-intro {
+            padding: 20px 0 30px;
+            text-align: center;
+        }
+        .result-intro h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+        .user-data {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        /* KART DÜZENİ */
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Temel Pozisyonlar Kartı */
+        .core-positions {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 30px;
+            border-top: 5px solid #ff99ff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            height: fit-content; /* İçeriği kadar yer kaplasın */
+        }
+        .core-positions h2 {
+            color: #ff99ff;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .core-positions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .core-positions li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        .core-positions li strong {
+            color: #fff;
+            margin-right: 5px;
+        }
+
+        /* YZ Analiz Kartı */
+        .ai-analysis-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 10px 40px rgba(2,6,23,0.75);
+            backdrop-filter: blur(10px);
+        }
+        .ai-analysis-card h2 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(90,42,135,0.5);
+        }
+        .ai-analysis-card p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: rgba(230,230,240,0.95);
+        }
+
+        /* ARKA PLAN YILDIZLARI (Harita sayfasından alındı) */
+        .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .star{
+            position:absolute; background:var(--star); width:4px; height:4px; border-radius:50%; filter:blur(1px); opacity:0.9;
+            animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate;
+        }
+        @keyframes drift{ 0%{transform:translateY(0) translateX(0) scale(1)} 50%{transform:translateY(-40px) translateX(20px) scale(0.9)} 100%{transform:translateY(0) translateX(0) scale(1)} }
+        @keyframes twinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: blur(3px); } }
+
+        /* Responsive */
+        @media (max-width:980px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width:600px) {
+            .result-intro h1 {
+                font-size: 2rem;
+            }
+            .ai-analysis-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="stars" aria-hidden="true">
+        <div class="star" style="left:8%;top:12%;animation-duration:14s;animation-delay:0s"></div>
+        <div class="star" style="left:38%;top:22%;animation-duration:10s;animation-delay:2s"></div>
+        <div class="star" style="left:68%;top:6%;animation-duration:18s;animation-delay:4s"></div>
+        <div class="star" style="left:82%;top:42%;animation-duration:9s;animation-delay:6s"></div>
+        <div class="star" style="left:14%;top:62%;animation-duration:11s;animation-delay:8s"></div>
+    </div>
+
+    <header class="header container">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+            </div>
+            <div>
+                <div class="site-title">Ayazora</div>
+                <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+            <a href="burc-rehberi.html">Burçlar</a>
+            <a href="ay-burclari.html">Ay Rehberi</a>
+            <a href="yukselen-burclari.html">Yükselen</a>
+            <a href="venus-rehberi.html">Venüs</a>
+            <a href="baba-figuru.html">Baba Figürü</a>
+            <a href="harita.html">Harita</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="result-intro">
+            <h1>Kişisel Kozmik Haritanızın Analizi</h1>
+            <span class="user-data">10 Mart 1990, 04:30 | İstanbul, Türkiye için analiz sonucu.</span>
+        </section>
+
+        <section class="result-grid">
+            
+            <div class="core-positions">
+                <h2>Temel Yerleşimler</h2>
+                <ul>
+                    <li><strong>Güneş:</strong> Balık Burcu, 2. Ev</li>
+                    <li><strong>Ay:</strong> İkizler Burcu, 5. Ev</li>
+                    <li><strong>Yükselen:</strong> Kova Burcu</li>
+                    <li><strong>Venüs:</strong> Koç Burcu, 3. Ev</li>
+                    <li><strong>Mars:</strong> Yay Burcu, 10. Ev</li>
+                    <li><strong>Merkür:</strong> Balık Burcu, 2. Ev</li>
+                    <li><strong>Satürn:</strong> Oğlak Burcu, 12. Ev</li>
+                    </ul>
+            </div>
+
+            <div class="ai-analysis-card">
+                <h2>Yapay Zeka Destekli Derin Yorum</h2>
+                <p>
+                    Haritanız, duygusal yapınızda (Ay İkizler), sosyal ve entelektüel uyarıma olan güçlü bir ihtiyacı gösterirken, temel kimliğiniz (Güneş Balık), sezgisel, empatik ve zaman zaman sınırları belirsiz bir kişiliği işaret ediyor.
+                </p>
+                <p>
+                    Yükselen Kova, dünyaya karşı nesnel, arkadaş canlısı ama mesafeli bir duruş sergilediğinizi belirtir. İlişkilerde (Venüs Koç), tutkulu, direkt ve çabuk heveslenen bir tavrınız var, ancak bu hızlı başlangıçlar, duygusal tatmin (Ay İkizler) arayışınızla sürekli değişime uğrayabilir.
+                </p>
+                <p>
+                    Haritanızın kritik noktası, Mars'ın Yay burcunda 10. Evdeki konumu ile Satürn'ün Oğlak burcunda 12. Evdeki yerleşimidir. Kariyer hedeflerinizde (10. Ev Mars Yay), büyük vizyon, etik ve özgürlük arayışı ön plandayken, bilinçaltı kaygılarınız ve otokontrolünüz (12. Ev Satürn Oğlak) sürekli olarak bu hedeflere ulaşma çabanızı sorgulatabilir. Bu, hayalleriniz ve somut başarılarınız arasında denge kurma ihtiyacını doğuran güçlü bir kozmik dinamiktir.
+                </p>
+                <p style="color: var(--accent); font-weight: 600;">
+                    Kozmik Tavsiye: Kariyer hedeflerinizdeki enerjiyi (Mars) sürdürmek için, Satürn'ün öğrettiği gibi disiplini ve somut yapıları (Oğlak) bilinçaltı endişelerden (12. Ev) arındırarak kullanmayı öğrenmelisiniz.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // LocalStorage'dan YZ analiz verisini çekme
+        const aiAnalysis = localStorage.getItem('ai_analysis');
+        const chartData = localStorage.getItem('chart_data');
+
+        const analysisCard = document.querySelector('.ai-analysis-card');
+        const positionList = document.querySelector('.core-positions ul');
+        const userDataSpan = document.querySelector('.user-data');
+
+        if (aiAnalysis && chartData) {
+            
+            // 1. YZ Analiz Metnini Yükleme
+            // Metni paragraflara ayırarak okunaklı hale getirelim
+            const paragraphs = aiAnalysis.split('\n').filter(p => p.trim() !== '');
+            analysisCard.innerHTML = '<h2>Yapay Zeka Destekli Derin Yorum</h2>';
+            paragraphs.forEach(p => {
+                const newP = document.createElement('p');
+                newP.innerHTML = p.trim();
+                analysisCard.appendChild(newP);
+            });
+
+            // 2. Temel Pozisyonları Yükleme
+            // Bu kısım, Python'daki simülasyon verisini ayrıştırır
+            const dataLines = chartData.split('\n').filter(line => line.includes(':'));
+            
+            // Kullanıcı Bilgisini Çekme (İlk satırdaki Tarih/Saat)
+            const birthInfoLine = dataLines.find(line => line.startsWith('Doğum Tarihi'));
+            if (birthInfoLine) {
+                const datePart = birthInfoLine.split(':')[1].trim();
+                const coordLine = dataLines.find(line => line.startsWith('Koordinatlar'));
+                
+                // Koordinat satırındaki Şehir adını kullanalım (simülasyon için)
+                const location = 'Girdiğiniz Konumdan Hesaplandı'; 
+                
+                userDataSpan.textContent = datePart + ' | ' + location;
+            }
+
+            // Geri kalan gezegen pozisyonlarını listeye ekle
+            if (positionList) {
+                positionList.innerHTML = ''; // Örnek veriyi temizle
+                dataLines.forEach(line => {
+                    const parts = line.split(':');
+                    if (parts.length > 1 && !line.startsWith('Doğum Tarihi') && !line.startsWith('Koordinatlar')) {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${parts[0].trim()}:</strong> ${parts[1].trim()}`;
+                        positionList.appendChild(li);
+                    }
+                });
+            }
+
+
+            // Analiz verileri yüklendikten sonra localStorage'ı temizleyebiliriz
+            localStorage.removeItem('ai_analysis');
+            localStorage.removeItem('chart_data');
+
+        } else {
+            // Eğer veri yoksa hata mesajı göster
+            analysisCard.innerHTML = '<h2>Analiz Verisi Bulunamadı</h2><p>Doğum haritası analizi için lütfen <a href="harita.html">Harita Çıkar</a> sayfasına geri dönün.</p>';
+        }
+    });
+</script>
+</body>
+</html>
