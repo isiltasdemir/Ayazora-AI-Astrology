@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Doğum Haritasında Baba Figürü | Ayazora</title>
+    <meta name="description" content="Doğum haritasında Güneş, Satürn, 4. ve 10. Evler aracılığıyla baba figürünün psikolojik etkilerini ve karma aktarımlarını inceleme." />
+    <style>
+        :root{
+            --bg: #0A1A3E; 
+            --accent: #5A2A87; 
+            --muted: #E6E6F0; 
+            --card: #071330;
+            --glass: rgba(255,214,255,0.06);
+            --star: rgba(255,214,255,0.55);
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+        .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+        /* HEADER & FOOTER STYLES */
+        header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+        .logo svg{fill:var(--muted);width:26px;height:26px}
+        .site-title{font-weight:700;font-size:1.05rem}
+        .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+        nav{display:flex;gap:18px;text-align:right}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+        nav a:hover{text-decoration:underline}
+        footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+        
+        /* BABA FİGÜRÜ SAYFA STİLLERİ */
+        .intro-section { padding: 40px 0 60px; text-align: center; }
+        .intro-section h1 { font-size: 2.8rem; color: #fff; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .intro-section p { font-size: 1.1rem; color: rgba(230,230,240,0.85); max-width: 800px; margin: 0 auto; }
+
+        /* İÇERİK YAPISI - HİZALAMA VE DENGE İÇİN GÜNCELLENDİ */
+        .content-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+            align-items: start; /* Ana içerikle yan sütunun üstten hizalanmasını sağlar */
+        }
+
+        /* ANA ANALİZ BÖLÜMÜ - Tek Kutu Haline Getirildi */
+        .main-analysis {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .main-analysis h2 {
+            color: #ff99ff; 
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .main-analysis h3 {
+            color: #fff;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .main-analysis p {
+            margin-bottom: 15px;
+            color: rgba(230,230,240,0.9);
+        }
+        .main-analysis strong {
+            color: var(--accent);
+        }
+
+        /* Sidebar Stilimiz - DAHA KOMPAKT HALE GETİRİLDİ */
+        .sidebar-tips {
+            background: var(--card);
+            padding: 18px; 
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border-top: 4px solid var(--accent); 
+        }
+        .sidebar-tips h3 {
+            color: var(--accent);
+            margin-top: 0;
+            font-size: 1.15rem; 
+            margin-bottom: 15px;
+        }
+        .sidebar-tips ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0; 
+        }
+        .sidebar-tips li {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 10px; 
+            border-radius: 4px;
+            margin-bottom: 6px; 
+            font-size: 0.85rem; 
+        }
+
+        /* GÜNEŞ YERLEŞİM KARTLARI */
+        .sun-placement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .sun-placement-card {
+            background: rgba(90,42,135,0.2); 
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--accent);
+        }
+        .sun-placement-card strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .sun-placement-card p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: rgba(230,230,240,0.8);
+        }
+        
+        /* Arka plan ve Responsive stilleri */
+        .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .star{ position:absolute; background:var(--star); width:4px; height:4px; border-radius:50%; filter:blur(1px); opacity:0.9; animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate; }
+        @keyframes drift{ 0%{transform:translateY(0) translateX(0) scale(1)} 50%{transform:translateY(-40px) translateX(20px) scale(0.9)} 100%{transform:translateY(0) translateX(0) scale(1)} }
+        @keyframes twinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: blur(3px); } }
+        @media (max-width:980px){ .content-section { grid-template-columns: 1fr; } }
+        @media (max-width:600px){ .intro-section h1 { font-size: 2rem; } .sun-placement-grid { grid-template-columns: 1fr; } }
+
+        .vurgu {
+       color: #BB8ED0; /* lila */
+       font-weight: 400; /* Ekstra kalınlık */
+       text-shadow:
+       0 0 2px #BB8ED0,  
+       0 0 4px #BB8ED0;
+       }
+
+    </style>
+</head>
+<body>
+    
+    <div class="stars" aria-hidden="true">
+        <div class="star" style="left:8%;top:12%;animation-duration:14s;animation-delay:0s"></div>
+        <div class="star" style="left:38%;top:22%;animation-duration:10s;animation-delay:2s"></div>
+        <div class="star" style="left:68%;top:6%;animation-duration:18s;animation-delay:4s"></div>
+        <div class="star" style="left:82%;top:42%;animation-duration:9s;animation-delay:6s"></div>
+        <div class="star" style="left:14%;top:62%;animation-duration:11s;animation-delay:8s"></div>
+        <div class="star" style="left:25%;top:80%;animation-duration:16s;animation-delay:1s"></div>
+        <div class="star" style="left:55%;top:70%;animation-duration:13s;animation-delay:3s"></div>
+        <div class="star" style="left:90%;top:85%;animation-duration:17s;animation-delay:5s"></div>
+        <div class="star" style="left:5%;top:30%;animation-duration:11s;animation-delay:7s"></div>
+        <div class="star" style="left:75%;top:18%;animation-duration:15s;animation-delay:9s"></div>
+    </div>
+
+    <header class="header container">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+            </div>
+            <div>
+                <div class="site-title">Ayazora</div>
+                <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+            </div>
+        </div>
+        <nav>
+            <a href="ayazora-anasayfa.html">Ana Sayfa</a>
+            <a href="burc-rehberi.html">Burçlar</a>
+            <a href="ay-burclari.html">Ay Rehberi</a>
+            <a href="yukselen-burclari.html">Yükselen</a>
+            <a href="venus-rehberi.html">Venüs</a>
+            <a href="baba-figuru.html">Baba Figürü</a>
+            <a href="temel-uclu-analiz.html">Temel Üçlü Analiz</a>
+            
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro-section">
+            <h1>Doğum Haritasında Baba Figürü: Otorite, Miras ve Yaşam Dersleri</h1>
+            <p>Doğum haritanızdaki baba figürünü okumak, haritanın genel sembolizmi içinde yer alan birden fazla göstergeyi değerlendirerek mümkündür. Güneş, Satürn, 4. Ev, 10. Ev ve bu göstergelere yapılan açılar, babayla olan ilişkinizi ve ondan aldığınız yaşam derslerini derinlemesine anlamayı sağlar.</p>
+        </section>
+
+        <section class="content-section">
+            
+            <div class="main-analysis">
+                
+                <h2>Temel Göstergeler: Güneş, Satürn ve Evler</h2>
+
+                
+                <h3>☀️ Güneş: Temel Baba Enerjisi</h3>
+                <p>
+                    Güneş haritada babayı en temel düzeyde temsil eder. Kişinin **otorite figürlerini**, babasından aldığı temel hayat enerjisini ve babanın rolünü nasıl algıladığını gösterir. Güneş’in bulunduğu burç, babanın kişilik özelliklerini; ev, babanın hayatı üzerindeki etkisini gösterir. Açıları inceleyerek babayla ilişkideki uyum veya çatışmaları analiz edebilirsiniz.
+                </p>
+
+                <h3>🪐 Satürn: Disiplin ve Dersler</h3>
+                <p>
+                    Satürn, babanın daha **otoriter, disiplinli ve öğretici** yönlerini temsil eder. Aynı zamanda babanın yaşamında üstlendiği sorumlulukları ve kişinin ondan öğrendiği dersleri de gösterir. Satürn’ün burç ve ev konumu, babanın disiplin anlayışını, hayat felsefesini ve kişinin üzerindeki baskısını yorumlamayı sağlar.
+                </p>
+
+                <h3>🏠 4. Ev ve 10. Ev: Ebeveyn Dinamikleri</h3>
+                <p>
+                    **10. Ev (MC)**, kariyer ve toplumsal itibarın yanı sıra geleneksel olarak **babayı** temsil ederken; **4. Ev (IC)**, kökler ve ev hayatıyla birlikte diğer ebeveni temsil eder. Evlerin yönetici gezegenlerinin durumları, babanın toplumsal etkisini ve kişinin babayla olan ilişkisindeki dinamikleri anlamada yardımcı olur.
+                </p>
+
+                <h3>🌑 Güney Düğüm ve Tutulmalar</h3>
+                <p>
+                    **Güney Düğüm**, atalardan gelen etkileri ve **babadan gelen karma aktarımları** temsil eder. Güneş tutulması döneminde doğmuş kişilerde ise baba figürü, kişinin hayatındaki güçlü bir **dönüşüm aracı** olduğunu gösterebilir.
+                </p>
+
+
+                <h2>Güneş'in Ev ve Burçlara Göre Baba Etkisi</h2>
+
+                <div class="sun-placement-grid">
+                    
+                    <div class="sun-placement-card"><strong>Güneş 1. Evde / Koç'ta</strong><p>Babanın enerjisi dinamik, mücadeleci ve dürüstlüğe önem veren bir yapıdadır. Babanın rolü kişi için oldukça ön plandadır.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 2. Evde / Boğa'da</strong><p>Maddi olarak harita sahibini destekleyen bir baba figüründen bahsedilebilir. Babanın mesleğini ya da işini devralmak mümkün.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 3. Evde / İkizler'de</strong><p>Eğitmen, ticarette başarılı, iletişimi güçlü, eleştirmen, yazar ya da pazarlama yetenekleri gelişmiş bir baba figürü kişinin hayatında yer alır.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 4. Evde / Yengeç'te</strong><p>Baba evde güçlü ve baskın bir kişiliğe sahip, otoriterdir. Kişinin atalardan getirdiği özellikler, hayatı boyunca kendini geliştirirken öğreneceği yaşam tecrübesi olarak gün yüzüne çıkar.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 5. Evde / Aslan'da</strong><p>Sosyal hayatı güçlü, yaşamdan keyif alan, sanat ya da spor yeteneği olan ünlü bir baba imajı vardır. Kişi babadan aldığı ilhamla, hobileri ve yeteneklerini kullanmayı başarabilir.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 6. Evde / Başak'ta</strong><p>Kişinin babası, mütevaziliğinden kaynaklı hak ettiği hedefe ulaşamamış ya da koşulsuz hizmet sektöründe çalışmayı tercih etmiş olabilir. Sağlıkla ilgili konular hassasiyet gösterir.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 7. Evde / Terazi'de</strong><p>Kişi yaşam hedefleri konusunda zaman zaman babasıyla çatışma yaşar. Dediğim dedik tavırlar nedeniyle baba-çocuk arasında inatlaşmalar görülür. Ama kariyer seçiminde baba etkili bir rol oynar.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 8. Evde / Akrep'te</strong><p>Baba çocuk ilişkisinde duygusal krizler ve travmalar yaşanabilir. Babanın finansal gücünden faydalanma söz konusudur. Baba hem spirütel yönü güçlü hem de maddi konularda bilgilidir.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 9. Evde / Yay'da</strong><p>Baba kişinin doğal yaşam kılavuzudur. Harita sahibi, hayat felsefesini babadan öğrendikleriyle geliştirir. Yurt dışında yaşayan ya da akademik alanda üst seviyeye çıkmış bir babadan söz edilebilir.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 10. Evde / Oğlak'ta</strong><p>Bürokrat, tanınmış ve toplum tarafından takdir görmüş bir baba, kişinin kariyerinde önemli rol oynar. Babanın yaşamda elde ettiği saygınlık ve itibar, harita sahibinin şansıdır.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 11. Evde / Kova'da</strong><p>Baba sosyal hayatta aktif, dernek, vakıf gibi kurumların başında ya da bir bürokrat olabilir. Kişiye özgür seçimlerinde ya da sosyal gruplarda tanınma çabasında yardımcı olur.</p></div>
+                    <div class="sun-placement-card"><strong>Güneş 12. Evde / Balık'ta</strong><p>Babanın varlığı koruyucu ve kollayıcı olsa da bilinçaltına itilen davranış kalıpları içerir. Erken baba kaybı, kişide yaşam boyu öz güven sorgulaması yaratabilir.</p></div>
+
+                </div>
+            </div>
+
+            <aside class="sidebar-tips">
+                <h3>Önemli Analiz İpuçları</h3>
+                <ul>
+                    <li><span class="vurgu">Güneş-Satürn Açıları</span> Baba figürüyle çatışma (sert açılar) veya uyum (trine, sextile).</li>
+                    <li><span class="vurgu">Güneş-Plüton Açıları</span> Babanın baskıcı veya dönüştürücü etkisini işaret eder.</li>
+                    <li><span class="vurgu">4. Evdeki Gezegenler</span> Mars (mücadeleci), Venüs (sevgi dolu), Neptün (belirsiz) baba karakterini detaylandırır.</li>
+                    <li><span class="vurgu">Progress/Transitler</span> Baba ile ilgili önemli olayların zamanlamasını gösterir.</li>
+                </ul>
+            </aside>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+        </div>
+    </footer>
+
+</body>
+</html>
