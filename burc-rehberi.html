@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Burç Rehberi | Ayazora</title>
+    <meta name="description" content="Burçların en çarpıcı, derin ve psikolojik analizleri. Koç'un öfkesinden Akrep'in gücüne, tüm burçları keşfet." />
+    <style>
+        :root{
+            --bg: #0A1A3E; /* gece mavisi */
+            --accent: #5A2A87; /* mor */
+            --muted: #E6E6F0; /* grimsi beyaz */
+            --card: #071330;
+            --glass: rgba(255,214,255,0.06);
+            --star: rgba(255,214,255,0.55);
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+        .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+        /* HEADER & FOOTER STYLES */
+        header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+        .logo svg{fill:var(--muted);width:26px;height:26px}
+        .site-title{font-weight:700;font-size:1.05rem}
+        .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+        nav{display:flex;gap:18px;text-align:right}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+        nav a:hover{text-decoration:underline}
+        footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+        
+        /* BURÇ REHBERİ SAYFA STİLLERİ */
+        .intro-section {
+            padding: 40px 0 60px;
+            text-align: center;
+        }
+        .intro-section h1 {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        .intro-section p {
+            font-size: 1.1rem;
+            color: rgba(230,230,240,0.85);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* BURÇ KARTLARI GRİD VE STİLİ */
+        .zodiac-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        .zodiac-card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border-left: 5px solid transparent;
+            cursor: pointer;
+        }
+        .zodiac-card:hover {
+            transform: translateY(-5px);
+            border-left-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(90,42,135,0.3);
+        }
+        .zodiac-card h2 {
+            margin: 0 0 5px 0;
+            color: var(--accent);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        .zodiac-card h2 span {
+            font-size: 0.9em;
+            font-weight: 400;
+            color: #fff;
+            margin-left: 10px;
+        }
+        .zodiac-card .ruling-planet {
+            font-size: 0.95rem;
+            color: rgba(230,230,240,0.6);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .zodiac-card p {
+            color: rgba(230,230,240,0.9);
+            line-height: 1.6;
+        }
+        
+        /* Arka plan için önceki yıldız stillerini ekliyoruz */
+        .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .star{
+            position:absolute;
+            background:var(--star);
+            width:4px;
+            height:4px;
+            border-radius:50%;
+            filter:blur(1px);
+            opacity:0.9;
+            animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate;
+        }
+        @keyframes drift{
+            0%{transform:translateY(0) translateX(0) scale(1)}
+            50%{transform:translateY(-40px) translateX(20px) scale(0.9)}
+            100%{transform:translateY(0) translateX(0) scale(1)}
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; filter: blur(3px); }
+        }
+
+        /* Responsive */
+        @media (max-width:600px){
+            .intro-section h1 {
+                font-size: 2rem;
+            }
+            .zodiac-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="stars" aria-hidden="true">
+        <div class="star" style="left:8%;top:12%;animation-duration:14s;animation-delay:0s"></div>
+        <div class="star" style="left:38%;top:22%;animation-duration:10s;animation-delay:2s"></div>
+        <div class="star" style="left:68%;top:6%;animation-duration:18s;animation-delay:4s"></div>
+        <div class="star" style="left:82%;top:42%;animation-duration:9s;animation-delay:6s"></div>
+        <div class="star" style="left:14%;top:62%;animation-duration:11s;animation-delay:8s"></div>
+        <div class="star" style="left:25%;top:80%;animation-duration:16s;animation-delay:1s"></div>
+        <div class="star" style="left:55%;top:70%;animation-duration:13s;animation-delay:3s"></div>
+        <div class="star" style="left:90%;top:85%;animation-duration:17s;animation-delay:5s"></div>
+        <div class="star" style="left:5%;top:30%;animation-duration:11s;animation-delay:7s"></div>
+        <div class="star" style="left:75%;top:18%;animation-duration:15s;animation-delay:9s"></div>
+    </div>
+
+    <header class="header container">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+            </div>
+            <div>
+                <div class="site-title">Ayazora</div>
+                <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+            </div>
+        </div>
+        <nav>
+            <a href="ayazora-anasayfa.html">Ana Sayfa</a>
+            <a href="ay-burclari.html">Ay Rehberi</a>
+            <a href="temel-uclu-analiz.html">Temel Üçlü Analiz</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro-section">
+            <h1>Burçların Derin Psikolojik Haritası</h1>
+            <p>Her burcun gölgesini, gücünü ve ruhsal yolculuğunu keşfet. Astrolojik enerjini derinlemesine anla ve kendine dair yeni farkındalıklar edin.</p>
+        </section>
+
+        <section class="zodiac-grid">
+            
+            <div class="zodiac-card">
+                <h2>♈ Koç <span>(21 Mart - 19 Nisan)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Mars**</span>
+                <p>
+                    **Karanlık Yön:** Öfke patlamaları, fevrilik ve kontrolsüz rekabetçilik. Hayatının iplerini ele alma ihtiyacı, bazen yıkıcı sonuçlar doğurur.
+                    <br><br>
+                    **Çarpıcı Güç:** **Mutlak cesaret**, öncülük yeteneği. Koç, eylemi başlatandır; korkuyu anında enerjiye dönüştürme gücüne sahiptir.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♉ Boğa <span>(20 Nisan - 20 Mayıs)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Venüs**</span>
+                <p>
+                    **Karanlık Yön:** **Maddi bağımlılık** ve değişime karşı gösterilen inatçı direnç. Konfor alanının yıkılmasından korkma, gelişimi yavaşlatabilir.
+                    <br><br>
+                    **Çarpıcı Güç:** **Güvenilirlik**, sağlamlık ve dünyevi zevkleri sanata dönüştürme yeteneği. Boğa, istikrarın ve kalıcılığın sembolüdür.
+                </p>
+            </div>
+            
+            <div class="zodiac-card">
+                <h2>♊ İkizler <span>(21 Mayıs - 20 Haziran)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Merkür**</span>
+                <p>
+                    **Karanlık Yön:** Yüzeysellik, dedikodu ve sürekli bir **kimlik arayışı**. Zihin hızının getirdiği anksiyete ve kararsızlık.
+                    <br><br>
+                    **Çarpıcı Güç:** **Adaptasyon ustalığı**, olağanüstü iletişim becerisi. İkizler, her ortamın dilini konuşur; bilgi akışını yönlendirme gücüne sahiptir.
+                </p>
+            </div>
+            
+            <div class="zodiac-card">
+                <h2>♋ Yengeç <span>(21 Haziran - 22 Temmuz)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Ay**</span>
+                <p>
+                    **Karanlık Yön:** **Duygusal manipülasyon**, aşırı sahiplenme ve geçmişe takılı kalma eğilimi. Kırılganlığın savunma mekanizması olarak kullanılması.
+                    <br><br>
+                    **Çarpıcı Güç:** **Derin sezgi**, empati ve koşulsuz koruma yeteneği. Yengeç, duygusal bağları en güçlü kuran ve besleyendir.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♌ Aslan <span>(23 Temmuz - 22 Ağustos)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Güneş**</span>
+                <p>
+                    **Karanlık Yön:** **Narsisizm**, ilgi bağımlılığı ve eleştiriye tahammülsüzlük. Onay almadığı anda enerjisini kaybetme riski.
+                    <br><br>
+                    **Çarpıcı Güç:** **Doğal liderlik**, cömertlik ve hayatı kutlama yeteneği. Aslan, sahnededir; yaratıcılığı ve sıcaklığıyla etrafına ışık saçar.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♍ Başak <span>(23 Ağustos - 22 Eylül)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Merkür**</span>
+                <p>
+                    **Karanlık Yön:** **Aşırı eleştirellik** (özellikle kendine), takıntılı detaycılık ve kaygı. Mükemmeliyetçiliğin felce yol açması.
+                    <br><br>
+                    **Çarpıcı Güç:** **Analiz yeteneği**, hizmet odaklılık. Başak, karmaşayı düzene sokar; kusursuz sistemler kurma dehasına sahiptir.
+                </p>
+            </div>
+            
+            <div class="zodiac-card">
+                <h2>♎ Terazi <span>(23 Eylül - 22 Ekim)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Venüs**</span>
+                <p>
+                    **Karanlık Yön:** **Kararsızlık**, çatışmadan kaçınma ve sürekli dış onaya ihtiyaç duyma. Yüzleşmeden kaçınmak için pasif agresiflik.
+                    <br><br>
+                    **Çarpıcı Güç:** **Uyum ve denge** kurma yeteneği, diplomasi. Terazi, estetik ve adaleti birleştirir; ilişkileri ustalıkla yönetir.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♏ Akrep <span>(23 Ekim - 21 Kasım)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Mars** ve **Plüton**</span>
+                <p>
+                    **Karanlık Yön:** **Kontrol takıntısı**, kıskançlık ve yıkıcı intikam arzusu. Aşırı duygusal yoğunluğun karanlık yönlere çekilmesi.
+                    <br><br>
+                    **Çarpıcı Güç:** **Dönüşüm ve sezgi** gücü. Akrep, hayatın en derin sırlarını çözer; küllerinden yeniden doğma yeteneği eşsizdir.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♐ Yay <span>(22 Kasım - 21 Aralık)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Jüpiter**</span>
+                <p>
+                    **Karanlık Yön:** **Fanatizm**, dogmatizm ve gerçeklerden kaçınma eğilimi. Abartılı iyimserliğin getirdiği sorumsuzluk.
+                    <br><br>
+                    **Çarpıcı Güç:** **Sonsuz iyimserlik**, felsefi derinlik ve bilgiye susamışlık. Yay, vizyonerdir; hayatın anlamını arar.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♑ Oğlak <span>(22 Aralık - 19 Ocak)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Satürn**</span>
+                <p>
+                    **Karanlık Yön:** **Duygusuzluk**, statü bağımlılığı ve aşırı kontrolcü olmak. Başarı uğruna yaşamın zevklerini erteleme eğilimi.
+                    <br><br>
+                    **Çarpıcı Güç:** **Disiplin**, dayanıklılık ve zirveye ulaşma yeteneği. Oğlak, kararlılığın ve kalıcı başarıların mimarıdır.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♒ Kova <span>(20 Ocak - 18 Şubat)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Satürn** ve **Uranüs**</span>
+                <p>
+                    **Karanlık Yön:** **Duygusal mesafelilik**, üstünlük kompleksi ve radikal görüşlere saplanma. İnsanlıktan yana olup bireye yabancılaşma.
+                    <br><br>
+                    **Çarpıcı Güç:** **Deha**, yenilikçilik ve eşitlikçi vizyon. Kova, geleceğin mimarıdır; toplumsal değişim için çabalar.
+                </p>
+            </div>
+
+            <div class="zodiac-card">
+                <h2>♓ Balık <span>(19 Şubat - 20 Mart)</span></h2>
+                <span class="ruling-planet">Yönetici Gezegen: **Jüpiter** ve **Neptün**</span>
+                <p>
+                    **Karanlık Yön:** **Gerçeklikten kaçış**, kurban rolüne bürünme ve kendini feda etme eğilimi. Sınırlarını koruyamama.
+                    <br><br>
+                    **Çarpıcı Güç:** **Sınırsız empati**, sanatsal yaratıcılık ve ruhsal derinlik. Balık, evrenle en güçlü bağı kurar; şifa ve ilham kaynağıdır.
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+        </div>
+    </footer>
+
+</body>
+</html>
