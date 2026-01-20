@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Venüs Rehberi | Ayazora</title>
+    <meta name="description" content="Venüs burcunuzun sevgi dilinizi, ilişkilerinizi ve değer algınızı nasıl belirlediğini keşfedin." />
+    <style>
+        :root{
+            --bg: #0A1A3E; 
+            --accent: #5A2A87; 
+            --muted: #E6E6F0; 
+            --card: #071330;
+            --glass: rgba(255,214,255,0.06);
+            --star: rgba(255,214,255,0.55);
+            --maxw: 1100px;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg) 0%, #041029 60%);-webkit-font-smoothing:antialiased;overflow-x: hidden;}
+        .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+        /* HEADER & FOOTER STYLES (Diğer sayfalarla aynı) */
+        header.header{position:relative; z-index:2; padding:14px 0;display:flex;align-items:center;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b2a6f);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(90,42,135,0.18)}
+        .logo svg{fill:var(--muted);width:26px;height:26px}
+        .site-title{font-weight:700;font-size:1.05rem}
+        .site-sub{font-size:0.85rem;color:rgba(230,230,240,0.75)}
+        nav{display:flex;gap:18px;text-align:right}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.95rem;opacity:0.9}
+        nav a:hover{text-decoration:underline}
+        footer{position:relative; z-index:2; padding:28px 0;text-align:center;color:rgba(230,230,240,0.7);font-size:0.95rem}
+        
+        /* VENÜS SAYFA STİLLERİ */
+        .intro-section { padding: 40px 0 60px; text-align: center; }
+        .intro-section h1 { font-size: 2.8rem; color: #fff; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .intro-section p { font-size: 1.1rem; color: rgba(230,230,240,0.85); max-width: 700px; margin: 0 auto; }
+
+        /* KART GRİD VE STİLİ */
+        .venus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        .venus-card {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border-left: 5px solid transparent;
+            cursor: pointer;
+        }
+        .venus-card:hover {
+            transform: translateY(-5px);
+            border-left-color: #ff99ff; /* Venüs'e özel daha pembe bir vurgu */
+            box-shadow: 0 10px 30px rgba(255, 153, 255, 0.2);
+        }
+        .venus-card h2 {
+            margin: 0 0 5px 0;
+            color: #ff99ff; /* Başlık Venüs vurgusuyla pembe */
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        .venus-card h2 span {
+            font-size: 0.9em;
+            font-weight: 400;
+            color: var(--muted);
+            margin-left: 10px;
+        }
+        .venus-card .love-style {
+            font-size: 0.95rem;
+            color: rgba(230,230,240,0.7);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .venus-card p {
+            color: rgba(230,230,240,0.9);
+            line-height: 1.6;
+        }
+        
+        /* Arka plan ve Responsive stilleri diğer sayfalarla aynı kalır */
+        .stars{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .star{ position:absolute; background:var(--star); width:4px; height:4px; border-radius:50%; filter:blur(1px); opacity:0.9; animation:drift 12s linear infinite, twinkle 3s ease-in-out infinite alternate; }
+        @keyframes drift{ 0%{transform:translateY(0) translateX(0) scale(1)} 50%{transform:translateY(-40px) translateX(20px) scale(0.9)} 100%{transform:translateY(0) translateX(0) scale(1)} }
+        @keyframes twinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: blur(3px); } }
+        @media (max-width:600px){ .intro-section h1 { font-size: 2rem; } .venus-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    
+    <div class="stars" aria-hidden="true">
+        <div class="star" style="left:8%;top:12%;animation-duration:14s;animation-delay:0s"></div>
+        <div class="star" style="left:38%;top:22%;animation-duration:10s;animation-delay:2s"></div>
+        <div class="star" style="left:68%;top:6%;animation-duration:18s;animation-delay:4s"></div>
+        <div class="star" style="left:82%;top:42%;animation-duration:9s;animation-delay:6s"></div>
+        <div class="star" style="left:14%;top:62%;animation-duration:11s;animation-delay:8s"></div>
+        <div class="star" style="left:25%;top:80%;animation-duration:16s;animation-delay:1s"></div>
+        <div class="star" style="left:55%;top:70%;animation-duration:13s;animation-delay:3s"></div>
+        <div class="star" style="left:90%;top:85%;animation-duration:17s;animation-delay:5s"></div>
+        <div class="star" style="left:5%;top:30%;animation-duration:11s;animation-delay:7s"></div>
+        <div class="star" style="left:75%;top:18%;animation-duration:15s;animation-delay:9s"></div>
+    </div>
+
+    <header class="header container">
+        <div class="brand">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 1 0 7 7 7 7 0 0 1-7-7z"/></svg>
+            </div>
+            <div>
+                <div class="site-title">Ayazora</div>
+                <div class="site-sub">Gökyüzü Senin Hakkında Ne Biliyor? </div>
+            </div>
+        </div>
+        <nav>
+            <a href="ayazora-anasayfa.html">Ana Sayfa</a>
+            <a href="burc-rehberi.html">Burçlar</a>
+            <a href="ay-burclari.html">Ay Rehberi</a>
+            <a href="yukselen-burclari.html">Yükselen</a>
+            <a href="temel-uclu-analiz.html">Temel Üçlü Analiz</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="intro-section">
+            <h1>Venüs Burçları: İlişkiler, Çekim ve Değer Algısı</h1>
+            <p>Venüs'ün konumu, seni neyin mutlu ettiğini, nasıl flört ettiğini ve başkalarından sevgi ve takdir bekleme şeklini gösterir. Senin sevgi dilin ne?</p>
+        </section>
+
+        <section class="venus-grid">
+            
+            <div class="venus-card">
+                <h2>♈ Venüs Koç'ta</h2>
+                <span class="love-style">Sevgi Dili: **Tutku ve Macera**</span>
+                <p>
+                    **İlişki Tarzı:** Aşkta direkt, hevesli ve cesur. Sevdiğini hemen belli eder. Kovalayan veya rekabet eden partnerlerden hoşlanır.
+                    <br><br>
+                    **Değer Algısı:** Kendine biçtiği değer, bağımsızlığına ve öncülük yeteneğine bağlıdır. Flörtöz ve hızlı ilerleyen ilişkiler arar.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♉ Venüs Boğa'da</h2>
+                <span class="love-style">Sevgi Dili: **Konfor ve Kalıcılık**</span>
+                <p>
+                    **İlişki Tarzı:** Sadık, sahiplenici ve duyusal. Sevgiyi dokunarak, güzel yemekler yaparak ve kaliteli zaman geçirerek gösterir.
+                    <br><br>
+                    **Değer Algısı:** Maddi ve duygusal güvenceye bağlıdır. Güzellik, lüks ve konforlu bir ortam onun için sevginin göstergesidir.
+                </p>
+            </div>
+            
+            <div class="venus-card">
+                <h2>♊ Venüs İkizler'de</h2>
+                <span class="love-style">Sevgi Dili: **İletişim ve Zeka**</span>
+                <p>
+                    **İlişki Tarzı:** Zeki, meraklı ve sosyal. Sevgiyi konuşarak, mesajlaşarak ve fikirlerini paylaşarak ifade eder. Sıkılmaktan korkar.
+                    <br><br>
+                    **Değer Algısı:** Zihinsel uyarım ve çeşitliliğe değer verir. Partneriyle her şeyi konuşabilmeli ve sürekli yeni şeyler öğrenmelidir.
+                </p>
+            </div>
+            
+            <div class="venus-card">
+                <h2>♋ Venüs Yengeç'te</h2>
+                <span class="love-style">Sevgi Dili: **Şefkat ve Besleme**</span>
+                <p>
+                    **İlişki Tarzı:** Hassas, koruyucu ve içten. Sevgiyi, partnerinin ihtiyaçlarını karşılayarak, ona yemek yaparak ve yuva hissi vererek gösterir.
+                    <br><br>
+                    **Değer Algısı:** Aile ve aidiyet duygusuna bağlıdır. Kendini güvende ve beslenmiş hissettiği ilişkilerde mutlu olur.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♌ Venüs Aslan'da</h2>
+                <span class="love-style">Sevgi Dili: **Hayranlık ve Cömertlik**</span>
+                <p>
+                    **İlişki Tarzı:** Dramatik, sıcak ve cömert. Sevgiyi, partnerini övgülere boğarak ve gösterişli jestlerle ifade eder. İlgi odağı olmak ister.
+                    <br><br>
+                    **Değer Algısı:** Takdir edilmeye ve saygı görmeye ihtiyaç duyar. Partnerinin ona olan hayranlığı, kendine olan değerini yükseltir.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♍ Venüs Başak'ta</h2>
+                <span class="love-style">Sevgi Dili: **Hizmet ve Eleştiri**</span>
+                <p>
+                    **İlişki Tarzı:** Pratik, titiz ve dikkatli. Sevgiyi, partnerine yardım ederek, onun hayatını kolaylaştırarak ve yapıcı eleştirilerle gösterir.
+                    <br><br>
+                    **Değer Algısı:** Faydalı olmaya ve mükemmeliyete bağlıdır. Partnerinin hayatındaki düzeni sağlamak onun için sevgi dilidir.
+                </p>
+            </div>
+            
+            <div class="venus-card">
+                <h2>♎ Venüs Terazi'de</h2>
+                <span class="love-style">Sevgi Dili: **Uyum ve Eşitlik**</span>
+                <p>
+                    **İlişki Tarzı:** Zarif, diplomatik ve adil. İlişkide dengeyi ve barışı korumaya çalışır. Tartışmalardan kaçınır.
+                    <br><br>
+                    **Değer Algısı:** Estetik, uyum ve partnerlik çok önemlidir. Karşılıklı sevgi ve saygı gördüğü ilişkilerde kendini değerli hisseder.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♏ Venüs Akrep'te</h2>
+                <span class="love-style">Sevgi Dili: **Yoğunluk ve Tutku**</span>
+                <p>
+                    **İlişki Tarzı:** Bütünleyici, tutkulu ve sahiplenici. Sevgiyi, partneriyle derin ve dönüştürücü bir bağ kurarak gösterir. Yüzeysellikten nefret eder.
+                    <br><br>
+                    **Değer Algısı:** Güçlü, gizemli ve tamamen bağlı hissetmek ister. Güven ve sadakat, ilişkideki en büyük değerleridir.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♐ Venüs Yay'da</h2>
+                <span class="love-style">Sevgi Dili: **Özgürlük ve Vizyon**</span>
+                <p>
+                    **İlişki Tarzı:** Maceracı, neşeli ve entelektüel. Sevgiyi, partneriyle dünyayı keşfederek, felsefi tartışmalara girerek ve özgürlük tanıyarak ifade eder.
+                    <br><br>
+                    **Değer Algısı:** Kendini sürekli geliştirmeye ve yeni vizyonlara açmaya değer verir. Partnerinin onu kısıtlamaması gerekir.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♑ Venüs Oğlak'ta</h2>
+                <span class="love-style">Sevgi Dili: **Ciddiyet ve İstikrar**</span>
+                <p>
+                    **İlişki Tarzı:** Mesafeli, ciddi ve planlı. Sevgiyi, partnerine somut taahhütler vererek, güvenilirliğini kanıtlayarak ve uzun vadeli planlar yaparak gösterir.
+                    <br><br>
+                    **Değer Algısı:** Saygınlık, başarı ve istikrara bağlıdır. İlişkilerinin de bu değerleri yansıtmasını ister.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♒ Venüs Kova'da</h2>
+                <span class="love-style">Sevgi Dili: **Arkadaşlık ve Bireysellik**</span>
+                <p>
+                    **İlişki Tarzı:** Objektif, arkadaşça ve gelenek dışı. Sevgiyi, partnerinin bireyselliğine saygı duyarak ve entelektüel olarak teşvik ederek gösterir.
+                    <br><br>
+                    **Değer Algısı:** Farklılığa ve özgürlüğe değer verir. İlişkide en yakın arkadaşı olmak ister ve duygusal dramadan kaçınır.
+                </p>
+            </div>
+
+            <div class="venus-card">
+                <h2>♓ Venüs Balık'ta</h2>
+                <span class="love-style">Sevgi Dili: **Romantizm ve Fedakarlık**</span>
+                <p>
+                    **İlişki Tarzı:** Romantik, şefkatli ve sınırsızca verici. Sevgiyi, partnerini idealize ederek, hayal kurarak ve onun için kendini feda ederek gösterir.
+                    <br><br>
+                    **Değer Algısı:** Koşulsuz sevgi ve ruhsal bağlantıya bağlıdır. Kendini bir masalın içinde hissettiği ilişkilerde en değerlisidir.
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Ayazora — Gökyüzü Senin Hakkında Ne Biliyor?</p>
+        </div>
+    </footer>
+
+</body>
+</html>
